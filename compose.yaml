@@ -1,0 +1,13 @@
+version: '3'
+services:
+  mongoqtt:
+    image: synsi/mongoqtt:latest
+    restart: always
+    #user: 1001:1001
+    environment:
+      - MONGOCON=mongodb://user:pass@192.168.178.250/mongoqtt?retryWrites=true
+      - MQTT_USER="mongoqtt"
+      - MQTT_PASS="secret"
+      - MQTT_HOST="192.168.178.250"
+      - BASE_TOPIC="mongoqtt"
+    
