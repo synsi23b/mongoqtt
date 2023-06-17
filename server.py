@@ -36,8 +36,9 @@ def on_message(client, userdata, message):
 
 client.on_message = on_message
 
-
-res = client.connect(os.getenv("MQTT_HOST"), keepalive=20)
+host = os.getenv("MQTT_HOST")
+print(f"Attempting MQTT connect to {host}")
+res = client.connect(host, keepalive=20)
 print("Mqtt connect result: ", res)
 client.loop_start()
 
