@@ -9,11 +9,11 @@ import os
 load_dotenv()
 
 
+mqtt = None
+base_top = ""
+
 def noop(v:str):
     print(v)
-
-
-#app_scope = None
 
 
 apps = [
@@ -38,8 +38,7 @@ def btn_click(app):
     put_buttons(["Return to main menu"], return_to_main)
     dsc, app = app
     put_text(dsc)
-    scope = use_scope()
-    app(scope)
+    app(mqtt, base_top)
 
 
 def show_menu():
@@ -53,6 +52,14 @@ def main():
         show_menu()
     except Exception as e:
         toast(f"Error: {e}")
+
+
+def launch(mqtt_client, base_topic):
+    global mqtt
+    global base_top
+    mqtt = mqtt_client
+    base_top = base_topic
+    pywebio.start_server(main, port=os.getenv("WEBIO_PORT"))
 
 
 if __name__ == '__main__':
