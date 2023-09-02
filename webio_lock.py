@@ -15,6 +15,7 @@ commands = [
     ("test2", ("barfoo", "[1,2,3]"))
 ]
 
+
 def btn_click(val):
     put_text(f"Exec: {val[0]}")
     mqtt_cl.publish(f"{mqtt_bs}lockcom", val[1])

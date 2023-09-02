@@ -18,7 +18,7 @@ class mqtt:
     def connect(self):
         self._mq.connect(True)
         for k in handlers:
-            self._mq.subscribe(mysecrets.MQTTBASE + k)
+            self._mq.subscribe(mysecrets.MQTTBASE + "/" + k)
 
     def tick(self):
         # check need for ping
@@ -40,7 +40,7 @@ class mqtt:
         m = f'"c":{self._mc},"level":"{level}","msg":"{m}"}}'
         self._mc += 1
         m = self._dv + m
-        self._mq.publish(mysecrets.MQTTBASE + "log", m, False, 1)
+        self._mq.publish(mysecrets.MQTTBASE + "/log", m, False, 1)
 
     def log_info(self, msg):
         self._log(msg, "info")
@@ -55,7 +55,7 @@ class mqtt:
         message["device"] = mysecrets.MQTTCLIENT
         message["c"] = self._mc
         self._mc += 1
-        self._mq.publish(mysecrets.MQTTBASE + topic, json.dumps(message), False, qos)
+        self._mq.publish(f"{mysecrets.MQTTBASE}/{topic}", json.dumps(message), False, qos)
         
 
 if __name__ == "__main__":

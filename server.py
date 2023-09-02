@@ -85,7 +85,7 @@ print("Mqtt connect result: ", res)
 
 
 for k in handlers:
-    topic = f"{base}{k}"
+    topic = f"{base}/{k}"
     print(f"Subscribing to {topic}")
     client.subscribe(topic)
 

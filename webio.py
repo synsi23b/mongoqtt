@@ -12,10 +12,13 @@ load_dotenv()
 mqtt = None
 base_top = ""
 
-def noop(v:str):
+def noop(mqtt_client, base_topic:str):
     print(v)
 
 
+# this array describes the main menu off the webio
+# The tuples are build like ("Button name", ("heading for sub menu / app", app_launcher_functor))
+# the functor takes 2 arguments, the first is a reference to the paho mqtt client, the second is the base topic name to act on 
 apps = [
     ("Main door functions", ("Main door functions", webio_lock.app)),
     ("test2", ("noop", noop))
@@ -54,6 +57,7 @@ def main():
         toast(f"Error: {e}")
 
 
+# this function is called by server.py to launch the web interface
 def launch(mqtt_client, base_topic):
     global mqtt
     global base_top
